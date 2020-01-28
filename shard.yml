@@ -1,0 +1,9 @@
+name: clarity
+version: 0.1.0
+
+authors:
+  - digitalextremist // <code@extremist.digital>
+
+crystal: 0.32.1
+
+license: MIT
