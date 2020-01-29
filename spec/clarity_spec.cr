@@ -1,9 +1,25 @@
 require "./spec_helper"
 
-describe Clarity do
-  # TODO: Write tests
+rows = Clarity::Rows.new
 
-  it "works" do
-    false.should eq(true)
-  end
-end
+query = {
+  "age" => {
+    "$gt" => 30
+  }
+}.to_msgpack
+
+puts query.to_s.inspect
+
+rows.push({
+  "String" => "Test",
+  "Bool" => true,
+  "Nil" => nil,
+  "Int32" => 126,
+  "Float32" => 126.222,
+  "Hash" => {
+    "String" => "Test",
+    "Int32" => 126
+  } of String => Clarity::Type
+} of String => Clarity::Type)
+
+puts rows.inspect

@@ -7,3 +7,10 @@ authors:
 crystal: 0.32.1
 
 license: MIT
+
+dependencies:
+  mongo:
+    github: ambercommunity/mongo.cr
+    branch: master
+  msgpack:
+    github: crystal-community/msgpack-crystal
