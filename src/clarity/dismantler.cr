@@ -1,10 +1,9 @@
-require "./types"
+require "./value"
 require "mongo"
 
 module Clarity
 
   def self.dismantle(a)
-    #de Gnosis.debug a.inspect, "dismantle"
     if a.is_a?(Hash)
       dismantle_hash(a)
     elsif a.is_a?(Array)
@@ -42,18 +41,14 @@ module Clarity
     clean
   end
 
-  def self.dismantle_else(d) #de : String | Bool | Int32 | Int64 | Float32 | Float64 | Nil
+  def self.dismantle_else(d)
     if d.is_a?(BSON)
-      #de Gnosis.debug(d.class, "typeof BSON")
       dismantle d.decode
     elsif d.is_a?(Mongo::Cursor)
-      #de Gnosis.debug(d.class, "typeof BSON")
       dismantle d.to_a
     elsif d.is_a?(BSON::ObjectId)
-      #de Gnosis.debug(d.class, "typeof BSON::ObjectId")
       d.to_s
     elsif d.is_a?(BSON::Symbol)
-      #de Gnosis.debug(d.class, "typeof BSON::Symbol")
       d.to_s
     elsif d.is_a?(BSON::Binary)
       Gnosis.debug(d.class, "typeof BSON::Binary")
@@ -64,7 +59,6 @@ module Clarity
     elsif d.is_a?(BSON::MinKey)
       Gnosis.debug(d.class, "typeof BSON::MinKey")
     elsif d.is_a?(BSON::Timestamp)
-      #de Gnosis.debug(d.class, "typeof BSON::Timestamp")
       d.timestamp.to_i
     elsif d.is_a?(Regex)
       Gnosis.debug(d.class, "typeof Regex")
