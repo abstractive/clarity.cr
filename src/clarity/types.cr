@@ -5,6 +5,8 @@ module Clarity
                 Float32 | Float64 |
                 Array(Value) |
                 Hash(String, Value)
+  
+  alias Data = Hash(String, Value)
 
                 #de Lowest common denominator is BSON
                 #de which doesn't support these:

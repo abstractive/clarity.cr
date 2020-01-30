@@ -1,12 +1,8 @@
 require "gnosis"
 require "msgpack"
 
-require "./clarity/value"
+require "./clarity/types"
 require "./clarity/dismantler"
-
-#de require "./clarity/data"
-#de require "./clarity/data/initialize"
-#de require "./clarity/data/to"
 
 #de #de Available:
 #de require "./clarity/msgpack"

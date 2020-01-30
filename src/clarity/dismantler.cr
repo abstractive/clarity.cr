@@ -1,10 +1,10 @@
-require "./value"
+require "./types"
 require "mongo"
 
 module Clarity
 
-  def self.dismantler(a)
-    #de Gnosis.debug a.inspect, "Dismantler"
+  def self.dismantle(a)
+    #de Gnosis.debug a.inspect, "dismantle"
     if a.is_a?(Hash)
       dismantle_hash(a)
     elsif a.is_a?(Array)
@@ -14,7 +14,7 @@ module Clarity
     end
   end
 
-  def self.dismantle_hash(h)
+  def self.dismantle_hash(h) : Hash(String, Clarity::Value)
     clean = Hash(String, Clarity::Value).new
     h.each { |k,v|
       clean[k.as(String)] = if v.is_a?(Hash)
@@ -45,10 +45,10 @@ module Clarity
   def self.dismantle_else(d) #de : String | Bool | Int32 | Int64 | Float32 | Float64 | Nil
     if d.is_a?(BSON)
       #de Gnosis.debug(d.class, "typeof BSON")
-      dismantler d.decode
+      dismantle d.decode
     elsif d.is_a?(Mongo::Cursor)
       #de Gnosis.debug(d.class, "typeof BSON")
-      dismantler d.to_a
+      dismantle d.to_a
     elsif d.is_a?(BSON::ObjectId)
       #de Gnosis.debug(d.class, "typeof BSON::ObjectId")
       d.to_s

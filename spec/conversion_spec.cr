@@ -25,7 +25,7 @@ Gnosis.debug msgpack = String.new(query.to_msgpack)
 query_reborn = Hash(String, MessagePack::Type).from_msgpack(msgpack)
 
 #de The goal:
-Gnosis.debug bson = Clarity.dismantler(query_reborn) #de .to_bson
+Gnosis.debug bson = Clarity.dismantle(query_reborn) #de .to_bson
 Gnosis.debug bson.to_bson, "Dismantled BSON"
 
 Gnosis.debug bson2 = { "test" => true }.to_bson
@@ -44,4 +44,4 @@ rows = [
   }
 ].to_bson
 
-Gnosis.debug Clarity.dismantler(rows)
+Gnosis.debug Clarity.dismantle(rows)

@@ -48,7 +48,7 @@ Gnosis.debug msgpack_string, "msgpack String of Query"
 Gnosis.debug query.to_bson.inspect, "from_msgpack: command BSON 1"
 
 bson = Hash(String, MessagePack::Type).from_msgpack(msgpack_string)
-Gnosis.debug Clarity.dismantler(bson).to_bson.inspect, "from_msgpack: command BSON 2"
+Gnosis.debug Clarity.dismantle(bson).to_bson.inspect, "from_msgpack: command BSON 2"
 
 #de TODO: Create a BSON object of a command msgpack.
 
