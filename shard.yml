@@ -1,5 +1,5 @@
 name: clarity
-version: 0.4.0
+version: 0.4.5
 
 authors:
   - digitalextremist // <code@extremist.digital>
@@ -17,3 +17,5 @@ dependencies:
     branch: master
   msgpack:
     github: crystal-community/msgpack-crystal
+  popcorn:
+    github: icyleaf/popcorn

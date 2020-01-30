@@ -1,4 +1,5 @@
 require "./value"
+require "popcorn"
 
 module Clarity
 
@@ -23,7 +24,7 @@ module Clarity
 
   def self.dismantle_array(a)
     clean = Array(Clarity::Value).new
-    a.map { |i|
+    a.each { |i|
       if i.is_a?(Hash)
         clean.push dismantle_hash(i)
       elsif i.is_a?(Array)
@@ -35,7 +36,7 @@ module Clarity
     clean
   end
 
-  def self.dismantle_else(d)
+  def self.dismantle_else(d) : String | Bool | Int32 | Int64 | Float64 | Nil
     if d.is_a?(String)
       d.as(String)
     elsif d.is_a?(Bool)
@@ -44,7 +45,17 @@ module Clarity
       d.as(Int32)
     elsif d.is_a?(Int64)
       d.as(Int64)
+    elsif d.is_a?(Float64)
+      d.as(Float64)
+    elsif d.is_a?(UInt64)
+      Popcorn.to_int64(d) #de .as(Int64)
+    elsif d.is_a?(UInt8) || d.is_a?(UInt16) || d.is_a?(UInt32)
+      Gnosis.warn(d.class, "typeof d")
+      Popcorn.to_int32(d)
     elsif d.nil?
+      nil
+    else
+      Gnosis.warn(d.class, "typeof d unknown")
       nil
     end
   end
