@@ -1,10 +1,10 @@
 require "./value"
-require "popcorn"
+require "mongo"
 
 module Clarity
 
   def self.dismantler(a)
-    Gnosis.debug a.inspect, "Dismantler"
+    #de Gnosis.debug a.inspect, "Dismantler"
     if a.is_a?(Hash)
       dismantle_hash(a)
     elsif a.is_a?(Array)
@@ -17,7 +17,6 @@ module Clarity
   def self.dismantle_hash(h)
     clean = Hash(String, Clarity::Value).new
     h.each { |k,v|
-      Gnosis.debug "#{k.class} => #{v.class}"
       clean[k.as(String)] = if v.is_a?(Hash)
         dismantle_hash(v)
       elsif v.is_a?(Array)
@@ -47,6 +46,9 @@ module Clarity
     if d.is_a?(BSON)
       #de Gnosis.debug(d.class, "typeof BSON")
       dismantler d.decode
+    elsif d.is_a?(Mongo::Cursor)
+      #de Gnosis.debug(d.class, "typeof BSON")
+      dismantler d.to_a
     elsif d.is_a?(BSON::ObjectId)
       #de Gnosis.debug(d.class, "typeof BSON::ObjectId")
       d.to_s
