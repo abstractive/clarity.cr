@@ -1,2 +1,2 @@
-require "spec"
-require "../src/**"
+#de require "spec"
+require "../src/clarity"
