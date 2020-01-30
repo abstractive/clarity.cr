@@ -1,9 +1,8 @@
 module Clarity
 
   alias Value = Nil | String | Bool |
-                Int64 |
-                Int32 |
-                Float64 |
+                Int32 | Int64 |
+                Float32 | Float64 |
                 Array(Value) |
                 Hash(String, Value)
 
