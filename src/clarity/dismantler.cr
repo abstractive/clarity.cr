@@ -48,10 +48,10 @@ module Clarity
     elsif d.is_a?(Float64)
       d.as(Float64)
     elsif d.is_a?(UInt64)
-      d.to_i64
+      Popcorn.to_int64(d) #de .as(Int64)
     elsif d.is_a?(UInt8) || d.is_a?(UInt16) || d.is_a?(UInt32)
       Gnosis.warn(d.class, "typeof d")
-      d.to_i32
+      Popcorn.to_int32(d)
     elsif d.nil?
       nil
     else
