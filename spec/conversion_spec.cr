@@ -1,7 +1,5 @@
 require "gnosis"
 require "msgpack"
-require "mongo/bson"
-#de require "../src/clarity/overrides"
 require "../src/clarity"
 
 query = {

@@ -1,5 +1,4 @@
 require "./value"
-require "mongo"
 
 module Clarity
 
@@ -44,8 +43,6 @@ module Clarity
   def self.dismantle_else(d)
     if d.is_a?(BSON)
       dismantle d.decode
-    elsif d.is_a?(Mongo::Cursor)
-      dismantle d.to_a
     elsif d.is_a?(BSON::ObjectId)
       d.to_s
     elsif d.is_a?(BSON::Symbol)
