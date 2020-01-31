@@ -5,10 +5,14 @@ module Clarity
   def self.dismantle(a)
     if a.is_a?(Hash)
       dismantle_hash(a)
+    elsif a.is_a?(BSON)
+      dismantle a.decode
     elsif a.is_a?(Array)
       dismantle_array(a)
     else
       dismantle_else(a)
+    #de else
+    #de   raise ArgumentError.new("Must pass Hash(String, Clarity::Value) to dismantle. Not: #{a.class}")
     end
   end
 

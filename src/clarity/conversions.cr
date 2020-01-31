@@ -1,6 +1,6 @@
 require "../clarity"
 
-def Clarity.from_msgpack(input)
+def Clarity.from_msgpack(input) : Hash(String, Clarity::Value)
   dismantle Hash(String, MessagePack::Type).from_msgpack(input)
 end
 
