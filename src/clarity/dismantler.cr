@@ -45,45 +45,44 @@ module Clarity
   end
 
   def self.dismantle_else(d)
-    case d
-    when String
+    if d.is_a?(BSON)
+      dismantle d.decode
+    elsif d.is_a?(String)
       d.as(String)
-    when Bool
+    elsif d.is_a?(Bool)
       d.as(Bool) ? true : false
-    when Nil
-      nil
-    when Int32
+    elsif d.is_a?(Int32)
       d.as(Int32)
-    when Int64
+    elsif d.is_a?(Int64)
       d.as(Int64)
-    when Float32
+    elsif d.is_a?(Float32)
       d.as(Float32)
-    when Float64
+    elsif d.is_a?(Float64)
       d.as(Float64)
-    when Time
+    elsif d.is_a?(BSON::ObjectId)
+      d.to_s
+    elsif d.is_a?(BSON::Symbol)
+      d.to_s
+    elsif d.is_a?(BSON::Binary)
+      Gnosis.debug(d.class, "typeof BSON::Binary")
+    elsif d.is_a?(BSON::Code)
+     Gnosis.debug(d.class, "typeof BSON::Code")
+    elsif d.is_a?(BSON::MaxKey)
+      Gnosis.debug(d.class, "typeof BSON::MaxKey")
+    elsif d.is_a?(BSON::MinKey)
+      Gnosis.debug(d.class, "typeof BSON::MinKey")
+    elsif d.is_a?(BSON::Timestamp)
+      d.timestamp.to_i
+    elsif d.is_a?(Regex)
+      Gnosis.debug(d.class, "typeof Regex")
+    elsif d.is_a?(Time)
       #de Gnosis.debug(d.class, "typeof Time")
       d.to_utc.to_rfc3339
-    when BSON::Timestamp
-      d.timestamp.to_i
-    when BSON
-      dismantle d.decode
-    when BSON::ObjectId
-      d.to_s
-    when BSON::Symbol
-      d.to_s
-    when BSON::Binary
-      #de Gnosis.debug(d.class, "typeof BSON::Binary")
-    when BSON::Code
-      #de Gnosis.debug(d.class, "typeof BSON::Code")
-    when BSON::MaxKey
-      #de Gnosis.debug(d.class, "typeof BSON::MaxKey")
-    when BSON::MinKey
-      #de Gnosis.debug(d.class, "typeof BSON::MinKey")
-    when Regex
-      #de Gnosis.debug(d.class, "typeof Regex")
-    when UInt64
+    elsif d.is_a?(Nil)
+      nil
+    elsif d.is_a?(UInt64)
       d.to_i64
-    when UInt8, UInt16, UInt32
+    elsif d.is_a?(UInt8) || d.is_a?(UInt16) || d.is_a?(UInt32)
       d.to_i32
     else
       #de Gnosis.debug(d.class, "typeof d unknown")
