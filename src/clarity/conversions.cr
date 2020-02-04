@@ -5,5 +5,5 @@ def Clarity.from_msgpack(input) : Hash(String, Clarity::Value)
 end
 
 def Clarity.to_msgpack(data)
-  String.new(data.to_msgpack)
+  String.new(dismantle(data).to_msgpack)
 end
